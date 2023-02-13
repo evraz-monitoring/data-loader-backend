@@ -10,6 +10,14 @@ python-versions = ">=3.7"
 tests = ["pytest", "pytest-asyncio", "mypy (>=0.800)"]
 
 [[package]]
+name = "async-timeout"
+version = "4.0.2"
+description = "Timeout context manager for asyncio programs"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[[package]]
 name = "django"
 version = "4.1.6"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
@@ -25,6 +33,17 @@ tzdata = {version = "*", markers = "sys_platform == \"win32\""}
 [package.extras]
 argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
+
+[[package]]
+name = "kafka-python"
+version = "2.0.2"
+description = "Pure Python client for Apache Kafka"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+crc32c = ["crc32c"]
 
 [[package]]
 name = "psycopg2"
@@ -46,6 +65,21 @@ python-versions = ">=3.7"
 cli = ["click (>=5.0)"]
 
 [[package]]
+name = "redis"
+version = "4.5.1"
+description = "Python client for Redis database and key-value store"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+async-timeout = ">=4.0.2"
+
+[package.extras]
+hiredis = ["hiredis (>=1.0.0)"]
+ocsp = ["cryptography (>=36.0.1)", "pyopenssl (==20.0.1)", "requests (>=2.26.0)"]
+
+[[package]]
 name = "sqlparse"
 version = "0.4.3"
 description = "A non-validating SQL parser."
@@ -64,12 +98,15 @@ python-versions = ">=2"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "5d33c1894ae70c201be6900552f52d08bab098182d63990a4c4fd065c3b1389d"
+content-hash = "ad8086901f2716b723ae74759036f12b94db5d5ecb62b081546b3706b36e0ad8"
 
 [metadata.files]
 asgiref = []
+async-timeout = []
 django = []
+kafka-python = []
 psycopg2 = []
 python-dotenv = []
+redis = []
 sqlparse = []
 tzdata = []
