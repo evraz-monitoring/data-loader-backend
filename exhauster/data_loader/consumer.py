@@ -31,6 +31,13 @@ class TopicConsumer:
         )
         self.redis = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT)
 
+        with open(settings.MAPPING_PATH, "r", encoding="utf-8") as f:
+            self.mapping_dict = json.load(f)
+
+        self.metrics_mapping = {
+            name: id_ for id_, name in Metric.objects.all().values_list("id", "name")
+        }
+
     def consume_messages(self):
         while True:
             for msg in self.consumer:
@@ -71,25 +78,20 @@ class TopicConsumer:
         self.redis.publish(channel, json.dumps(message))
 
     def _add_measures(self, measures):
-        with open(settings.MAPPING_PATH, "r", encoding="utf-8") as f:
-            mapping_dict = json.load(f)
         ts = datetime.fromisoformat(measures["moment"])
-        exhausters = Exhauster.objects.all()
-        metrics = Metric.objects.all()
         system_indicators = []
         for measure, value in measures.items():
-            if measure in mapping_dict:
-                met_name = mapping_dict[measure]["metric"]
-                exhauster = exhausters.get(id=mapping_dict[measure]["exhauster"])
-                metric = metrics.filter(name=met_name)[0]
-                system_indicators.append(
-                    SystemIndicator(
-                        measurement_time=ts,
-                        value=value,
-                        exhauster=exhauster,
-                        metric=metric,
-                    )
+            if measure not in self.mapping_dict:
+                continue
+            met_name = self.mapping_dict[measure]["metric"]
+            system_indicators.append(
+                SystemIndicator(
+                    measurement_time=ts,
+                    value=value,
+                    exhauster_id=self.mapping_dict[measure]["exhauster"],
+                    metric_id=self.metrics_mapping[met_name],
                 )
+            )
         SystemIndicator.objects.bulk_create(system_indicators)
 
         logger.info(" measure load to database")
