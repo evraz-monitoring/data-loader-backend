@@ -6,7 +6,7 @@ from datetime import datetime
 import redis
 from data_loader.models import Exhauster, Metric, SystemIndicator
 from django.conf import settings
-from kafka import KafkaConsumer, TopicPartition
+from kafka import KafkaConsumer
 
 logger = logging.getLogger("main")
 
@@ -17,6 +17,7 @@ class TopicConsumer:
         self.topic = topic
         context = ssl.create_default_context(cafile=settings.CA_PATH)
         self.consumer = KafkaConsumer(
+            self.topic,
             bootstrap_servers=self.brokers,
             security_protocol="SASL_SSL",
             ssl_context=context,
@@ -31,8 +32,6 @@ class TopicConsumer:
         self.redis = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT)
 
     def consume_messages(self):
-        self.consumer.assign([TopicPartition(topic=self.topic, partition=0)])
-        self.consumer.seek_to_beginning()
         while True:
             for msg in self.consumer:
                 logger.info(
@@ -46,7 +45,7 @@ class TopicConsumer:
                 self._add_measures(msg.value)
                 self._add_data_to_queue(
                     settings.REDIS_QUEUE_NAME,
-                    self._parse_message(msg.value, msg.timestamp)
+                    self._parse_message(msg.value, msg.timestamp),
                 )
 
     def _parse_message(self, message, timestamp):
@@ -55,17 +54,13 @@ class TopicConsumer:
         exhausters = Exhauster.objects.all()
 
         result = [
-            {
-                "exhauster": exhauster.pk,
-                "ts": timestamp
-            }
-            for exhauster in exhausters
+            {"exhauster": exhauster.pk, "ts": timestamp} for exhauster in exhausters
         ]
         for measure, value in message.items():
             if measure in mapping_dict:
                 met_name = mapping_dict[measure]["metric"]
                 exhauster_id = mapping_dict[measure]["exhauster"]
-                result[exhauster_id-1][met_name] = value
+                result[exhauster_id - 1][met_name] = value
         return result
 
     def _add_data_to_cache(self, message):
