@@ -87,11 +87,11 @@ WSGI_APPLICATION = "exhauster.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASSWORD"),
-        "HOST": "0.0.0.0",
-        "PORT": os.getenv("DB_PORT"),
+        "NAME": os.getenv("DB_NAME", default="postgres"),
+        "USER": os.getenv("DB_USER", default="postgres"),
+        "PASSWORD": os.getenv("DB_PASSWORD", default="postgres"),
+        "HOST": os.getenv("DB_HOST", default="0.0.0.0"),
+        "PORT": os.getenv("DB_PORT", default="5432"),
     }
 }
 
@@ -170,3 +170,12 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+
+# Kafka settings
+KAFKA_BROKER_URL = os.getenv(
+    "KAFKA_BROKER_URL", default="rc1a-b5e65f36lm3an1d5.mdb.yandexcloud.net:9091"
+)
+KAFKA_METRICS_TOPIC = os.getenv("KAFKA_METRICS_TOPIC", default="zsmk-9433-dev-01")
+KAFKA_USERNAME = os.getenv("KAFKA_USERNAME", default="9433_reader")
+KAFKA_PASSWORD = os.getenv("KAFKA_PASSWORD", default="eUIpgWu0PWTJaTrjhjQD3.hoyhntiK")
+KAFKA_CONSUMER_GROUP = os.getenv("KAFKA_CONSUMER_GROUP", default="based")

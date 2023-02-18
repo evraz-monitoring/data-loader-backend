@@ -1,13 +1,14 @@
-import redis
 import json
 import logging
 import ssl
-from kafka import KafkaConsumer, TopicPartition
-from django.conf import settings
 from datetime import datetime
-from data_loader.models import Metric, SystemIndicator, Exhauster
 
-logger = logging.getLogger('main')
+import redis
+from data_loader.models import Exhauster, Metric, SystemIndicator
+from django.conf import settings
+from kafka import KafkaConsumer, TopicPartition
+
+logger = logging.getLogger("main")
 
 
 class TopicConsumer:
@@ -16,16 +17,16 @@ class TopicConsumer:
         self.topic = topic
         context = ssl.create_default_context(cafile=settings.CA_PATH)
         self.consumer = KafkaConsumer(
-                                    bootstrap_servers=self.brokers,
-                                    security_protocol='SASL_SSL',
-                                    ssl_context=context,
-                                    sasl_mechanism='SCRAM-SHA-512',
-                                    sasl_plain_username="9433_reader",
-                                    sasl_plain_password="eUIpgWu0PWTJaTrjhjQD3.hoyhntiK",
-                                    group_id='based',
-                                    auto_offset_reset='earliest',
-                                    enable_auto_commit=True,
-                                    value_deserializer=lambda m: json.loads(m.decode('ascii'))
+            bootstrap_servers=self.brokers,
+            security_protocol="SASL_SSL",
+            ssl_context=context,
+            sasl_mechanism="SCRAM-SHA-512",
+            sasl_plain_username=settings.KAFKA_USERNAME,
+            sasl_plain_password=settings.KAFKA_PASSWORD,
+            group_id=settings.KAFKA_CONSUMER_GROUP,
+            auto_offset_reset="earliest",
+            enable_auto_commit=True,
+            value_deserializer=lambda m: json.loads(m.decode("ascii")),
         )
         self.redis = redis.Redis(host="localhost")
 
@@ -34,15 +35,18 @@ class TopicConsumer:
         self.consumer.seek_to_beginning()
         while True:
             for msg in self.consumer:
-                logger.info("Received message: topic=%s, partition=%d, offset=%d, ts=%s, value=%s",
-                            msg.topic, msg.partition, msg.offset, msg.timestamp, msg.value)
+                logger.info(
+                    "Received message: topic=%s, partition=%d, offset=%d, ts=%s, value=%s",  # noqa: E501
+                    msg.topic,
+                    msg.partition,
+                    msg.offset,
+                    msg.timestamp,
+                    msg.value,
+                )
                 self._add_measures(msg.value)
 
     def _add_data_to_cache(self, message):
-        data = {
-            "value": json.loads(message.value)['value'],
-            "ts": message.timestamp
-        }
+        data = {"value": json.loads(message.value)["value"], "ts": message.timestamp}
         self.redis.hset("measures", message.topic, json.dumps(data))
 
     def _add_measures(self, measures):
@@ -62,12 +66,12 @@ class TopicConsumer:
                         measurement_time=ts,
                         value=value,
                         exhauster=exhauster,
-                        metric=metric
+                        metric=metric,
                     )
                 )
         SystemIndicator.objects.bulk_create(system_indicators)
 
-        logger.info(f" measure load to database")
+        logger.info(" measure load to database")
 
     def _add_metrics(self, value):
         with open(settings.MAPPING_PATH, "r", encoding="utf-8") as f:
