@@ -1,4 +1,5 @@
 from django.db import models
+
 # from timescale.fields import TimescaleDateTimeField
 # Create your models here.
 
@@ -19,7 +20,12 @@ class Exhauster(models.Model):
 
 
 class SystemIndicator(models.Model):
-    measurement_time = models.DateTimeField()
+    measurement_time = models.DateTimeField(primary_key=True)
     value = models.FloatField()
     exhauster = models.ForeignKey(Exhauster, on_delete=models.CASCADE)
     metric = models.ForeignKey(Metric, on_delete=models.CASCADE)
+
+    class Meta:
+        managed = False
+        db_table = "data_loader_systemindicator"
+        unique_together = (("measurement_time", "exhauster_id", "metric_id"),)
