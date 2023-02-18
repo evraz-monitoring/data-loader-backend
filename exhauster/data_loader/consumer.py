@@ -28,7 +28,7 @@ class TopicConsumer:
             enable_auto_commit=True,
             value_deserializer=lambda m: json.loads(m.decode("ascii")),
         )
-        self.redis = redis.Redis(host="localhost")
+        self.redis = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT)
 
     def consume_messages(self):
         self.consumer.assign([TopicPartition(topic=self.topic, partition=0)])
@@ -44,10 +44,36 @@ class TopicConsumer:
                     msg.value,
                 )
                 self._add_measures(msg.value)
+                self._add_data_to_queue(
+                    settings.REDIS_QUEUE_NAME,
+                    self._parse_message(msg.value, msg.timestamp)
+                )
+
+    def _parse_message(self, message, timestamp):
+        with open(settings.MAPPING_PATH, "r", encoding="utf-8") as f:
+            mapping_dict = json.load(f)
+        exhausters = Exhauster.objects.all()
+
+        result = [
+            {
+                "exhauster": exhauster.pk,
+                "ts": timestamp
+            }
+            for exhauster in exhausters
+        ]
+        for measure, value in message.items():
+            if measure in mapping_dict:
+                met_name = mapping_dict[measure]["metric"]
+                exhauster_id = mapping_dict[measure]["exhauster"]
+                result[exhauster_id-1][met_name] = value
+        return result
 
     def _add_data_to_cache(self, message):
         data = {"value": json.loads(message.value)["value"], "ts": message.timestamp}
         self.redis.hset("measures", message.topic, json.dumps(data))
+
+    def _add_data_to_queue(self, channel, message):
+        self.redis.publish(channel, json.dumps(message))
 
     def _add_measures(self, measures):
         with open(settings.MAPPING_PATH, "r", encoding="utf-8") as f:

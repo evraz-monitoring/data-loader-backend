@@ -171,6 +171,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
+REDIS_QUEUE_NAME = os.getenv("REDIS_QUEUE_NAME", default="metrics")
+
 # Kafka settings
 KAFKA_BROKER_URL = os.getenv(
     "KAFKA_BROKER_URL", default="rc1a-b5e65f36lm3an1d5.mdb.yandexcloud.net:9091"
@@ -179,3 +181,5 @@ KAFKA_METRICS_TOPIC = os.getenv("KAFKA_METRICS_TOPIC", default="zsmk-9433-dev-01
 KAFKA_USERNAME = os.getenv("KAFKA_USERNAME", default="9433_reader")
 KAFKA_PASSWORD = os.getenv("KAFKA_PASSWORD", default="eUIpgWu0PWTJaTrjhjQD3.hoyhntiK")
 KAFKA_CONSUMER_GROUP = os.getenv("KAFKA_CONSUMER_GROUP", default="based")
+REDIS_PORT = os.getenv("REDIS_PORT", default=6379)
+REDIS_HOST = os.getenv("REDIS_HOST", default="127.0.0.1")
