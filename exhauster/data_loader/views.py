@@ -68,8 +68,8 @@ class ActualSystemIndicators(APIView):
 
 class HistoricalSystemIndicator(APIView):
     def get(self, request):
-        date_from = datetime.fromisoformat(request.query_params["dateFrom"])
-        date_to = datetime.fromisoformat(request.query_params["dateTo"])
+        date_from = datetime.fromisoformat(request.query_params["dateFrom"][:-1])
+        date_to = datetime.fromisoformat(request.query_params["dateTo"][:-1])
         metrics = request.query_params["metrics"].split(",")
         exhauster_id = request.query_params["exhauster"]
         metrics_qs = models.Metric.objects.filter(name__in=metrics)
@@ -81,7 +81,7 @@ class HistoricalSystemIndicator(APIView):
             & Q(metric__in=metrics_qs, exhauster_id=exhauster_id)
         )
         if not system_indicators:
-            return HttpResponseNotFound
+            return HttpResponseNotFound()
 
         result = defaultdict(dict)
         for indicator in system_indicators:
