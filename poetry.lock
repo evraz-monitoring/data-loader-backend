@@ -35,6 +35,14 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-timescaledb"
+version = "0.2.13"
+description = "A Django database backend for integration with TimescaleDB"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "kafka-python"
 version = "2.0.2"
 description = "Pure Python client for Apache Kafka"
@@ -63,6 +71,14 @@ python-versions = ">=3.7"
 
 [package.extras]
 cli = ["click (>=5.0)"]
+
+[[package]]
+name = "pytz"
+version = "2022.7.1"
+description = "World timezone definitions, modern and historical"
+category = "main"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "redis"
@@ -98,15 +114,17 @@ python-versions = ">=2"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "ad8086901f2716b723ae74759036f12b94db5d5ecb62b081546b3706b36e0ad8"
+content-hash = "d0ca08bbbc44987413f2eb51be49e2c429562b22147e93fe0ebe20c0e773f2a1"
 
 [metadata.files]
 asgiref = []
 async-timeout = []
 django = []
+django-timescaledb = []
 kafka-python = []
 psycopg2 = []
 python-dotenv = []
+pytz = []
 redis = []
 sqlparse = []
 tzdata = []

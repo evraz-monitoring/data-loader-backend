@@ -11,6 +11,8 @@ python-dotenv = "^0.21.1"
 psycopg2 = "^2.9.5"
 kafka-python = "^2.0.2"
 redis = "^4.5.1"
+django-timescaledb = "^0.2.13"
+pytz = "^2022.7.1"
 
 [tool.poetry.dev-dependencies]
 
