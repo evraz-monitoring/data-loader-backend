@@ -41,14 +41,6 @@ class TopicConsumer:
     def consume_messages(self):
         while True:
             for msg in self.consumer:
-                logger.info(
-                    "Received message: topic=%s, partition=%d, offset=%d, ts=%s, value=%s",  # noqa: E501
-                    msg.topic,
-                    msg.partition,
-                    msg.offset,
-                    msg.timestamp,
-                    msg.value,
-                )
                 self._add_measures(msg.value)
                 self._add_data_to_queue(
                     settings.REDIS_QUEUE_NAME,

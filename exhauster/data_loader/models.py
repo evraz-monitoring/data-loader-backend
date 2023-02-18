@@ -21,7 +21,7 @@ class Exhauster(models.Model):
 
 class SystemIndicator(models.Model):
     measurement_time = models.DateTimeField(primary_key=True)
-    value = models.FloatField()
+    value = models.FloatField(null=True)
     exhauster = models.ForeignKey(Exhauster, on_delete=models.CASCADE)
     metric = models.ForeignKey(Metric, on_delete=models.CASCADE)
 

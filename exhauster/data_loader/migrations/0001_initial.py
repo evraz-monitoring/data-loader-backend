@@ -61,7 +61,7 @@ class Migration(migrations.Migration):
                 (
                     "CREATE TABLE public.data_loader_systemindicator ("
                     "measurement_time timestamp with time zone not null,"
-                    "value            double precision         not null,"
+                    "value            double precision,"
                     "exhauster_id     bigint                   not null"
                     "    constraint data_loader_systemin_exhauster_id_edfe6e49_fk_data_load"
                     "        references data_loader_exhauster"
