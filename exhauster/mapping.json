@@ -445,43 +445,43 @@
     },
     "SM_Exgauster\\[4.1]": {
         "exhauster": 1,
-        "metric": "temperature_gas_valve_closed"
+        "metric": "gas_valve_closed"
     },
     "SM_Exgauster\\[4.2]": {
         "exhauster": 1,
-        "metric": "temperature_gas_valve_open"
+        "metric": "gas_valve_open"
     },
     "SM_Exgauster\\[4:6]": {
         "exhauster": 1,
-        "metric": "temperature_gas_valve_position"
+        "metric": "gas_valve_position"
     },
     "SM_Exgauster\\[4:2]": {
         "exhauster": 1,
-        "metric": "temperature_rotor_current"
+        "metric": "main_drive_rotor_current"
     },
     "SM_Exgauster\\[4:4]": {
         "exhauster": 1,
-        "metric": "temperature_rotor_voltage"
+        "metric": "main_drive_rotor_voltage"
     },
     "SM_Exgauster\\[4:3]": {
         "exhauster": 1,
-        "metric": "temperature_stator_current"
+        "metric": "main_drive_stator_current"
     },
     "SM_Exgauster\\[4:5]": {
         "exhauster": 1,
-        "metric": "temperature_stator_voltage"
+        "metric": "main_drive_stator_voltage"
     },
     "SM_Exgauster\\[4:0]": {
         "exhauster": 1,
-        "metric": "temperature_oil_level"
+        "metric": "oilsystem_oil_level"
     },
     "SM_Exgauster\\[4:1]": {
         "exhauster": 1,
-        "metric": "temperature_oil_pressure"
+        "metric": "oilsystem_oil_pressure"
     },
     "SM_Exgauster\\[2.0]": {
         "exhauster": 1,
-        "metric": "temperature_work"
+        "metric": "work"
     },
     "SM_Exgauster\\[2:43]": {
         "exhauster": 2,
@@ -929,43 +929,43 @@
     },
     "SM_Exgauster\\[4.6]": {
         "exhauster": 2,
-        "metric": "temperature_gas_valve_closed"
+        "metric": "gas_valve_closed"
     },
     "SM_Exgauster\\[4.7]": {
         "exhauster": 2,
-        "metric": "temperature_gas_valve_open"
+        "metric": "gas_valve_open"
     },
     "SM_Exgauster\\[4:13]": {
         "exhauster": 2,
-        "metric": "temperature_gas_valve_position"
+        "metric": "gas_valve_position"
     },
     "SM_Exgauster\\[4:9]": {
         "exhauster": 2,
-        "metric": "temperature_rotor_current"
+        "metric": "main_drive_rotor_current"
     },
     "SM_Exgauster\\[4:11]": {
         "exhauster": 2,
-        "metric": "temperature_rotor_voltage"
+        "metric": "main_drive_rotor_voltage"
     },
     "SM_Exgauster\\[4:10]": {
         "exhauster": 2,
-        "metric": "temperature_stator_current"
+        "metric": "main_drive_stator_current"
     },
     "SM_Exgauster\\[4:12]": {
         "exhauster": 2,
-        "metric": "temperature_stator_voltage"
+        "metric": "main_drive_stator_voltage"
     },
     "SM_Exgauster\\[4:7]": {
         "exhauster": 2,
-        "metric": "temperature_oil_level"
+        "metric": "oilsystem_oil_level"
     },
     "SM_Exgauster\\[4:8]": {
         "exhauster": 2,
-        "metric": "temperature_oil_pressure"
+        "metric": "oilsystem_oil_pressure"
     },
     "SM_Exgauster\\[2.1]": {
         "exhauster": 2,
-        "metric": "temperature_work"
+        "metric": "work"
     },
     "SM_Exgauster\\[0:27]": {
         "exhauster": 3,
@@ -1413,43 +1413,43 @@
     },
     "SM_Exgauster\\[1.1]": {
         "exhauster": 3,
-        "metric": "temperature_gas_valve_closed"
+        "metric": "gas_valve_closed"
     },
     "SM_Exgauster\\[1.2]": {
         "exhauster": 3,
-        "metric": "temperature_gas_valve_open"
+        "metric": "gas_valve_open"
     },
     "SM_Exgauster\\[1:6]": {
         "exhauster": 3,
-        "metric": "temperature_gas_valve_position"
+        "metric": "gas_valve_position"
     },
     "SM_Exgauster\\[1:2]": {
         "exhauster": 3,
-        "metric": "temperature_rotor_current"
+        "metric": "main_drive_rotor_current"
     },
     "SM_Exgauster\\[1:4]": {
         "exhauster": 3,
-        "metric": "temperature_rotor_voltage"
+        "metric": "main_drive_rotor_voltage"
     },
     "SM_Exgauster\\[1:3]": {
         "exhauster": 3,
-        "metric": "temperature_stator_current"
+        "metric": "main_drive_stator_current"
     },
     "SM_Exgauster\\[1:5]": {
         "exhauster": 3,
-        "metric": "temperature_stator_voltage"
+        "metric": "main_drive_stator_voltage"
     },
     "SM_Exgauster\\[1:0]": {
         "exhauster": 3,
-        "metric": "temperature_oil_level"
+        "metric": "oilsystem_oil_level"
     },
     "SM_Exgauster\\[1:1]": {
         "exhauster": 3,
-        "metric": "temperature_oil_pressure"
+        "metric": "oilsystem_oil_pressure"
     },
     "SM_Exgauster\\[0.0]": {
         "exhauster": 3,
-        "metric": "temperature_work"
+        "metric": "work"
     },
     "SM_Exgauster\\[0:43]": {
         "exhauster": 4,
@@ -1897,43 +1897,43 @@
     },
     "SM_Exgauster\\[1.6]": {
         "exhauster": 4,
-        "metric": "temperature_gas_valve_closed"
+        "metric": "gas_valve_closed"
     },
     "SM_Exgauster\\[1.7]": {
         "exhauster": 4,
-        "metric": "temperature_gas_valve_open"
+        "metric": "gas_valve_open"
     },
     "SM_Exgauster\\[1:13]": {
         "exhauster": 4,
-        "metric": "temperature_gas_valve_position"
+        "metric": "gas_valve_position"
     },
     "SM_Exgauster\\[1:9]": {
         "exhauster": 4,
-        "metric": "temperature_rotor_current"
+        "metric": "main_drive_rotor_current"
     },
     "SM_Exgauster\\[1:11]": {
         "exhauster": 4,
-        "metric": "temperature_rotor_voltage"
+        "metric": "main_drive_rotor_voltage"
     },
     "SM_Exgauster\\[1:10]": {
         "exhauster": 4,
-        "metric": "temperature_stator_current"
+        "metric": "main_drive_stator_current"
     },
     "SM_Exgauster\\[1:12]": {
         "exhauster": 4,
-        "metric": "temperature_stator_voltage"
+        "metric": "main_drive_stator_voltage"
     },
     "SM_Exgauster\\[1:7]": {
         "exhauster": 4,
-        "metric": "temperature_oil_level"
+        "metric": "oilsystem_oil_level"
     },
     "SM_Exgauster\\[1:8]": {
         "exhauster": 4,
-        "metric": "temperature_oil_pressure"
+        "metric": "oilsystem_oil_pressure"
     },
     "SM_Exgauster\\[0.1]": {
         "exhauster": 4,
-        "metric": "temperature_work"
+        "metric": "work"
     },
     "SM_Exgauster\\[3:27]": {
         "exhauster": 5,
@@ -2381,43 +2381,43 @@
     },
     "SM_Exgauster\\[5.1]": {
         "exhauster": 5,
-        "metric": "temperature_gas_valve_closed"
+        "metric": "gas_valve_closed"
     },
     "SM_Exgauster\\[5.2]": {
         "exhauster": 5,
-        "metric": "temperature_gas_valve_open"
+        "metric": "gas_valve_open"
     },
     "SM_Exgauster\\[5:6]": {
         "exhauster": 5,
-        "metric": "temperature_gas_valve_position"
+        "metric": "gas_valve_position"
     },
     "SM_Exgauster\\[5:2]": {
         "exhauster": 5,
-        "metric": "temperature_rotor_current"
+        "metric": "main_drive_rotor_current"
     },
     "SM_Exgauster\\[5:4]": {
         "exhauster": 5,
-        "metric": "temperature_rotor_voltage"
+        "metric": "main_drive_rotor_voltage"
     },
     "SM_Exgauster\\[5:3]": {
         "exhauster": 5,
-        "metric": "temperature_stator_current"
+        "metric": "main_drive_stator_current"
     },
     "SM_Exgauster\\[5:5]": {
         "exhauster": 5,
-        "metric": "temperature_stator_voltage"
+        "metric": "main_drive_stator_voltage"
     },
     "SM_Exgauster\\[5:0]": {
         "exhauster": 5,
-        "metric": "temperature_oil_level"
+        "metric": "oilsystem_oil_level"
     },
     "SM_Exgauster\\[5:1]": {
         "exhauster": 5,
-        "metric": "temperature_oil_pressure"
+        "metric": "oilsystem_oil_pressure"
     },
     "SM_Exgauster\\[3.0]": {
         "exhauster": 5,
-        "metric": "temperature_work"
+        "metric": "work"
     },
     "SM_Exgauster\\[3:43]": {
         "exhauster": 6,
@@ -2865,42 +2865,42 @@
     },
     "SM_Exgauster\\[5.6]": {
         "exhauster": 6,
-        "metric": "temperature_gas_valve_closed"
+        "metric": "gas_valve_closed"
     },
     "SM_Exgauster\\[5.7]": {
         "exhauster": 6,
-        "metric": "temperature_gas_valve_open"
+        "metric": "gas_valve_open"
     },
     "SM_Exgauster\\[5:13]": {
         "exhauster": 6,
-        "metric": "temperature_gas_valve_position"
+        "metric": "gas_valve_position"
     },
     "SM_Exgauster\\[5:9]": {
         "exhauster": 6,
-        "metric": "temperature_rotor_current"
+        "metric": "main_drive_rotor_current"
     },
     "SM_Exgauster\\[5:11]": {
         "exhauster": 6,
-        "metric": "temperature_rotor_voltage"
+        "metric": "main_drive_rotor_voltage"
     },
     "SM_Exgauster\\[5:10]": {
         "exhauster": 6,
-        "metric": "temperature_stator_current"
+        "metric": "main_drive_stator_current"
     },
     "SM_Exgauster\\[5:12]": {
         "exhauster": 6,
-        "metric": "temperature_stator_voltage"
+        "metric": "main_drive_stator_voltage"
     },
     "SM_Exgauster\\[5:7]": {
         "exhauster": 6,
-        "metric": "temperature_oil_level"
+        "metric": "oilsystem_oil_level"
     },
     "SM_Exgauster\\[5:8]": {
         "exhauster": 6,
-        "metric": "temperature_oil_pressure"
+        "metric": "oilsystem_oil_pressure"
     },
     "SM_Exgauster\\[3.1]": {
         "exhauster": 6,
-        "metric": "temperature_work"
+        "metric": "work"
     }
 }
