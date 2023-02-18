@@ -27,10 +27,17 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", default="True") == "True"
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "0.0.0.0"]
-
+ALLOWED_HOSTS = os.environ.get(
+    "ALLOWED_HOSTS", default="localhost 127.0.0.1 0.0.0.0 localhost:3000 127.0.0.1:3000"
+).split(" ")
+CSRF_TRUSTED_ORIGINS = os.environ.get(
+    "CSRF_TRUSTED_ORIGINS",
+    default=(
+        "http://localhost http://127.0.0.1 http://localhost:3000 http://127.0.0.1:3000"
+    ),
+).split(" ")
 
 # Application definition
 
@@ -160,3 +167,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
