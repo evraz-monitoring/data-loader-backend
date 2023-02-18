@@ -84,7 +84,7 @@ class TopicConsumer:
                     metric_id=self.metrics_mapping[met_name],
                 )
             )
-        SystemIndicator.objects.bulk_create(system_indicators)
+        SystemIndicator.objects.bulk_create(system_indicators, ignore_conflicts=True)
 
         logger.info(" measure load to database")
 
