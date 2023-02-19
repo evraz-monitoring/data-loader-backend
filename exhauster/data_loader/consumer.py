@@ -1,6 +1,7 @@
 import json
 import logging
 import ssl
+import time
 from datetime import datetime
 
 import redis
@@ -42,18 +43,30 @@ class TopicConsumer:
         while True:
             for msg in self.consumer:
                 self._add_measures(msg.value)
+                message = self._parse_message(msg.value)
                 self._add_data_to_queue(
                     settings.REDIS_QUEUE_NAME,
-                    self._parse_message(msg.value, msg.timestamp),
+                    message,
                 )
+                self._add_actual_data_to_cache(message)
 
-    def _parse_message(self, message, timestamp):
+    def _parse_message(self, message):
         with open(settings.MAPPING_PATH, "r", encoding="utf-8") as f:
             mapping_dict = json.load(f)
         exhausters = Exhauster.objects.all()
 
         result = [
-            {"exhauster": exhauster.pk, "ts": timestamp} for exhauster in exhausters
+            {
+                "exhauster": exhauster.pk,
+                "ts": int(
+                    time.mktime(
+                        datetime.strptime(
+                            message["moment"], "%Y-%m-%dT%H:%M:%S.%f"
+                        ).timetuple()
+                    )
+                ),
+            }
+            for exhauster in exhausters
         ]
         for measure, value in message.items():
             if measure in mapping_dict:
@@ -99,3 +112,16 @@ class TopicConsumer:
                 metrics.append(Metric(name=met_name["metric"]))
 
         Metric.objects.bulk_create(metrics)
+
+    def _add_actual_data_to_cache(self, message: list):
+        keys = {}
+        for exhauster_dict in message:
+            exhauster = exhauster_dict["exhauster"]
+            ts = exhauster_dict["ts"]
+            for metric_name, value in exhauster_dict.items():
+                if metric_name in ("exhauster", "ts"):
+                    continue
+                keys[f"metric:{exhauster}:{metric_name}"] = json.dumps(
+                    {"v": value, "ts": ts}
+                )
+        self.redis.mset(keys)

@@ -1,6 +1,9 @@
+import json
 from collections import defaultdict
 from datetime import datetime
 
+import redis
+from django.conf import settings
 from django.db.models import Q
 from django.http import HttpResponseNotFound
 from rest_framework.response import Response
@@ -44,25 +47,15 @@ class SinterMachines(APIView):
 
 class ActualSystemIndicators(APIView):
     def get(self, request):
-        actual_ts = models.SystemIndicator.objects.latest(
-            "measurement_time"
-        ).measurement_time
-        indicators = models.SystemIndicator.objects.select_related("metric").filter(
-            measurement_time=actual_ts
-        )
-        result = []
-        exhausters = models.Exhauster.objects.all()
-        if not indicators:
-            return HttpResponseNotFound
-        for exhauster in exhausters:
-            data = {"exhauster": exhauster.pk, "ts": actual_ts.timestamp()}
-            exhauster_indicators = indicators.filter(exhauster=exhauster)
-            metrics = {
-                indicator.metric.name: indicator.value
-                for indicator in exhauster_indicators
-            }
-            data.update(metrics)
-            result.append(data)
+        redis_ = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT)
+
+        keys = redis_.keys(pattern="metric:*")
+        values = redis_.mget(keys)
+        result = defaultdict(dict)
+        for key, value in zip(keys, values):
+            _, exhauster, metric = key.decode("utf-8").split(":")
+            value = json.loads(value)
+            result[str(exhauster)][metric] = {"value": value["v"], "ts": value["ts"]}
         return Response(result)
 
 
